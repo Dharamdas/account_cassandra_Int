@@ -1,0 +1,53 @@
+spring:
+ profiles:
+   active: dev
+ jackson:
+   property-naming-strategy: SNAKE_CASE
+logging:
+  level:
+    kmc: WARN
+endpoints:
+   enabled: true
+   env:
+     enabled: true
+   info:
+     enabled: true
+   health:
+     enabled: true
+     sensitive: false
+server:
+  port: 8080
+  max-http-header-size: 65536
+  packetSize: 65536
+  connection-timeout: 60000
+  tomcat:
+    accesslog:
+       buffered: false
+       directory: /Users/z001yb4/Documents/git-Dharamdas/logs/account
+       enabled: false
+       file-date-format: .yyyy-MM-dd.HH # Date format to place in log
+       pattern: '{"@timestamp":"%{yyyy-MM-dd''T''HH:mm:ss.SSSXXX}t", "clientIP":"%{True-Client-IP}i", "x-forwarded-for":"%{X-Forwarded-For}i", "request":"%U", "query":"%q", "method":"%m", "status":%s, "userAgent":"%{User-agent}i", "referer":"%{Referer}i", "size":%B, "resTime":%D, "correlationId":"%{correlationId}o"}' # Format pattern for access logs.
+       prefix: access_log # Log file name prefix.
+       rotatet: true # Enable access log rotation.
+       suffix: .log
+    max-threads: 300 # Log file name suffix.
+async:
+ profilepool:
+    coresize: 5
+    maxsize: 10
+    queueCapacity: 400
+    prefix: account
+swagger:
+    enable: true
+cookies:
+    addEnvPrefix: true
+
+cassandra:
+  username: cassandra
+  contactpoints: 127.0.0.1
+  keyspace: test01
+  password: cassandra
+
+
+
+

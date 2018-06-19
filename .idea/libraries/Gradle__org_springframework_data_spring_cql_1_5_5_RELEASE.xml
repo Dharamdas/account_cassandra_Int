@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.data:spring-cql:1.5.5.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-cql/1.5.5.RELEASE/cbd56444f4702dc56406055dfd7f55c4a53228a/spring-cql-1.5.5.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-cql/1.5.5.RELEASE/305a246b68fe80cf5ac4a81e0cb9cfcef31dd422/spring-cql-1.5.5.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
