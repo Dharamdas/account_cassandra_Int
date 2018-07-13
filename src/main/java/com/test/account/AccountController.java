@@ -1,5 +1,7 @@
 package com.test.account;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.Timed;
 import com.test.base.BaseController;
 import com.test.model.AccountDTO;
 import com.test.model.AccountResponseDTO;
@@ -14,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.test.account.BaseContoller.BASE_METRIC_URI;
 
 @RestController
 @RequestMapping("/account")
@@ -36,6 +40,8 @@ public class AccountController extends BaseController{
             @ApiResponse(code=400,message = "Malformed Request"),
             @ApiResponse(code=500,message = "Internal Error")
     })
+    @Timed(name = BASE_METRIC_URI+"/get/profile.GET",absolute = true)
+    @ExceptionMetered(name = BASE_METRIC_URI+"/get/profile.GET."+ExceptionMetered.DEFAULT_NAME_SUFFIX,absolute = true)
     @ResponseBody
     public ResponseEntity getProfile(@RequestParam("guestid") int guestid){
       log.info("fetching profile info......for profile id {}",guestid);
@@ -43,7 +49,7 @@ public class AccountController extends BaseController{
       AccountResponseDTO accountResponseDTO = accountService.getProfile(guestid);
 
 
-      return new ResponseEntity<>(accountResponseDTO,HttpStatus.FOUND);
+      return new ResponseEntity<>(accountResponseDTO,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create",
@@ -57,18 +63,20 @@ public class AccountController extends BaseController{
             @ApiResponse(code=400,message = "Malformed Request"),
             @ApiResponse(code=500,message = "Internal Error")
     })
+    @Timed(name = BASE_METRIC_URI+"/create.POST",absolute = true)
+    @ExceptionMetered(name = BASE_METRIC_URI+"/create.POST."+ExceptionMetered.DEFAULT_NAME_SUFFIX,absolute = true)
     @ResponseBody
     public ResponseEntity createAccount(@RequestBody AccountDTO accountDTO){
         log.info("Creating account with ...... id {}",accountDTO.getGuestid());
       //  AccountResponseDTO accountResponseDTO = new AccountResponseDTO();
         System.out.println("Start Calling Aync-1 Call");
-        declarationsTask.task1(50);
+       // declarationsTask.task1(50);
 
 
        AccountResponseDTO accountResponseDTO =  accountService.createAccount(accountDTO);
         System.out.println("Start Calling Aync-2 Call");
-        declarationsTask.task2(25);
-        return new ResponseEntity<>(accountResponseDTO,HttpStatus.FOUND);
+       // declarationsTask.task2(25);
+        return new ResponseEntity<>(accountResponseDTO,HttpStatus.CREATED);
     }
 
 
@@ -83,6 +91,8 @@ public class AccountController extends BaseController{
             @ApiResponse(code=400,message = "Malformed Request"),
             @ApiResponse(code=500,message = "Internal Error")
     })
+    @Timed(name = BASE_METRIC_URI+"/update.PUT",absolute = true)
+    @ExceptionMetered(name = BASE_METRIC_URI+"/update.PUT."+ExceptionMetered.DEFAULT_NAME_SUFFIX,absolute = true)
     @ResponseBody
     public ResponseEntity updateProfile(@RequestBody AccountDTO accountDTO){
          AccountResponseDTO accountResponseDTO =    accountService.updateProfile(accountDTO);
@@ -101,6 +111,8 @@ public class AccountController extends BaseController{
             @ApiResponse(code=400,message = "Malformed Request"),
             @ApiResponse(code=500,message = "Internal Error")
     })
+    @Timed(name = BASE_METRIC_URI+"/delete.DELETE",absolute = true)
+    @ExceptionMetered(name = BASE_METRIC_URI+"/delete.DELETE."+ExceptionMetered.DEFAULT_NAME_SUFFIX,absolute = true)
     @ResponseBody
     public ResponseEntity deleteProfile(@RequestParam("guestid") int guestid){
         log.info("Deleting Account for guestId {}",guestid);

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mockrunner:mockrunner-jms:1.0.8">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mockrunner/mockrunner-jms/1.0.8/4f6f1a8d4d2217216db152e1821773611bd65241/mockrunner-jms-1.0.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mockrunner/mockrunner-jms/1.0.8/fb0989b00f4877a996c995df01fd701984e93dc0/mockrunner-jms-1.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

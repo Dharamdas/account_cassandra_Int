@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: com.anotherchrisberry:spock-retry:0.6.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Could not find com.anotherchrisberry:spock-retry:0.6.0.&#10;Searched in the following locations:&#10;    https:/repo1.maven.org/maven2/com/anotherchrisberry/spock-retry/0.6.0/spock-retry-0.6.0.pom&#10;    https:/repo1.maven.org/maven2/com/anotherchrisberry/spock-retry/0.6.0/spock-retry-0.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
