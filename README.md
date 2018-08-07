@@ -33,13 +33,13 @@ CREATE TABLE test01.account (
 ## Execute Application
 
 ## Setup the app in Eclipse 
-Since Lambok is not fully supported by Eclipse need to patch eclipse to support fully follow below steps
-To Run in Eclipse:
-# Steps:1 Down load Lambok Jar from https://projectlombok.org/downloads/lombok.jar
-# Step:2 run the below command in CL
-    java -jar lombok.jar
-Select Eclipse to install Lambok Support
-# Step3: Restart eclipse and Machine
+   Since Lambok is not fully supported by Eclipse need to patch eclipse to support fully follow below steps
+   To Run in Eclipse:
+   Steps:1 Down load Lambok Jar from https://projectlombok.org/downloads/lombok.jar
+   Step:2 run the below command in CL
+   java -jar lombok.jar
+   Select Eclipse to install Lambok Support
+   Step3: Restart eclipse and Machine
 # Step:4 Clone project https://github.com/Dharamdas/account_cassandra_Int and import in Eclipse
 # Step5: Refresh project (Project right click-- Gradle --> refresh)
 # Step6: Project will display in Gradle Task (Build --> clean and Build)
