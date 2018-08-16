@@ -45,3 +45,107 @@ CREATE TABLE test01.account (
 # Step6: Project will display in Gradle Task (Build --> clean and Build)
 # Step7: Run spring boot app (go to AccountApp.java - right clik and run as application)
 
+## Test Case File
+
+
+import com.test.account.AccountController;
+import com.test.main.AccountApp;
+import com.test.model.AccountDTO;
+import com.test.model.AccountResponseDTO;
+import com.test.service.AccountService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(value = AccountController.class, secure = false)
+@ContextConfiguration(classes = AccountApp.class)
+public class AccountControllerTest {
+
+
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean
+    private AccountService accountService;
+
+    @Test
+    public void createAccount()throws Exception{
+
+        AccountDTO accountDTO = new AccountDTO().builder()
+                .guestid(1010)
+                .firstName("UnitTest")
+                .lastName("Account")
+                .email("account@gmail.com")
+                .mobile("9988335566")
+                .passsword("testing@123")
+                .build();
+
+        AccountResponseDTO accountResponseDTO = new AccountResponseDTO();
+        accountResponseDTO.setFirstName("Test");
+        accountResponseDTO.setGuestid(1000);
+        accountResponseDTO.setLastName("Kumar");
+        accountResponseDTO.setEmail("kumar@gmail.com");
+
+        Mockito.when(
+                accountService.createAccount(Mockito.any(AccountDTO.class))).thenReturn(accountResponseDTO);
+
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("http://localhost:8080/account/create")
+                .accept(MediaType.APPLICATION_JSON).content(TestUtil.converObjectToJsonBytes(accountDTO))
+                .contentType(MediaType.APPLICATION_JSON);
+        MvcResult responseResult = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = responseResult.getResponse();
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
+
+}
+
+## Test Util
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+
+public class TestUtil {
+
+    public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+
+
+    public static byte[] converObjectToJsonBytes(Object object) throws IOException
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return mapper.writeValueAsBytes(object);
+    }
+
+    public static String createStringWithLenth(int length)
+    {
+        StringBuilder builder = new StringBuilder();
+        for(int index=0;index<length;index++)
+        {
+            builder.append("a");
+        }
+        return builder.toString();
+    }
+
+}
